@@ -1,0 +1,38 @@
+﻿@page
+@model AdminPanel.Pages.LoginModel
+@{
+}
+
+<div class="section">
+    @if (Model.Message != null)
+    {
+        <div class="row">
+            <div class="col-12 alert alert-primary">
+                @Model.Message
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <div>
+                <div class="card">
+                    <div class="card-header">Login</div>
+                    <div class="card-body">
+                        <form class="form" asp-page-handler="login">
+                            Email:<br />
+                            <input class="form-control" asp-for="Email" />
+                            Password: <br />
+                            <input class="form-control" asp-for="Password" />
+                            <br /><br/>
+
+                            <button class="btn btn-primary float-end">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4"></div>
+
+    </div>
+</div>

@@ -1,0 +1,145 @@
+﻿@page
+@model AdminPanel.Pages.Category.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>AssessmentResultGroup</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssessmentResultGroup.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssessmentResultGroup.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssessmentResultGroup.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssessmentResultGroup.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssessmentResultGroup.IsActive)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssessmentResultGroup.IsActive)
+        </dd>
+    </dl>
+
+    <div class="row">
+        <div class="col-12">
+            <a asp-page="./Edit" asp-route-id="@Model.AssessmentResultGroup.Id">Edit</a> |
+            <a asp-page="./Index">Back to List</a>
+        </div>
+    </div>
+
+
+
+    @if (Model.Message != null)
+    {
+        <div class="row">
+            <div class="col-12 alert alert-primary">
+                @Model.Message
+            </div>
+        </div>
+    }
+    <h3 class="mt-5">Hints</h3>
+    <hr />
+    <div class="row">
+        @if (Model.AssessmentResultGroup.ResultTips.Any())
+        {
+
+            <div class="col-12">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(s=>s.AssessmentResultGroup.ResultTips.First().Content)
+                            </th>
+                            
+                            <th>
+                                @Html.DisplayNameFor(s=>s.AssessmentResultGroup.ResultTips.First().IsLink)
+                            </th>
+
+                            
+                            <th>
+                                @Html.DisplayNameFor(s=>s.AssessmentResultGroup.ResultTips.First().IsActive)
+                            </th>
+                        </tr>
+                    </thead>
+
+                     <thead>
+                        @foreach(var item in Model.AssessmentResultGroup.ResultTips){
+                            <tr>
+                            <td>
+                                @Html.DisplayFor(s=>item.Content)
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(s=>item.IsLink)
+                            </td>
+
+                            
+                            <td>
+                                @Html.DisplayFor(s=>item.IsActive)
+                            </td>
+                        </tr>
+                        }
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        }
+        
+    <h5 class="mt-5">Add Hints</h5>
+    <hr />
+        <div class="col-12">
+            <form class="form" asp-page-handler="Hint" method="post">
+                <label asp-for="NewHint.Content"></label>
+                <input required class="form-control" asp-for="NewHint.Content"/>
+                <span asp-validation-for="NewHint.Content"/>
+
+                <label asp-for="NewHint.IsLink"></label>
+                <input required asp-for="NewHint.IsLink"/>
+                <span asp-validation-for="NewHint.IsActive"/>
+                <br/><br/>
+                <button class="btn alert-primary" type="submit" >Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

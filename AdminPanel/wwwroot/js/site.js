@@ -2,3 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+
+function closeIt(pop_id) {
+    $('#' + pop_id).hide();
+}

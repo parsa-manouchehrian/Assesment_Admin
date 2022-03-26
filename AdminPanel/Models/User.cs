@@ -26,6 +26,7 @@ namespace AdminPanel.Models
         public int ProvinceId { get; set; }
         public string? UserStatusName { get; set; }
         public bool? HasAcceptAgreement { get; set; }
+        public bool? HasAcceptResearchParticipation { get; set; }
 
         public virtual Province Province { get; set; } = null!;
         public virtual UserStatus? UserStatusNameNavigation { get; set; }

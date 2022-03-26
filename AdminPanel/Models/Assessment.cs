@@ -20,9 +20,8 @@ namespace AdminPanel.Models
         public DateTime SubmitDateTime { get; set; }
         public bool IsActive { get; set; }
         public int? AssessmentResultGroupId { get; set; }
-        public int? AssessmentResultGroupsId { get; set; }
 
-        public virtual AssessmentResultGroup? AssessmentResultGroups { get; set; }
+        public virtual AssessmentResultGroup? AssessmentResultGroup { get; set; }
         public virtual Subject Subject { get; set; } = null!;
         public virtual User? User { get; set; }
         public virtual ICollection<AssessmentUserResult> AssessmentUserResults { get; set; }

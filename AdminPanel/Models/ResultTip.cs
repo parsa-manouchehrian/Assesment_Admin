@@ -10,6 +10,7 @@ namespace AdminPanel.Models
         public bool IsLink { get; set; }
         public bool IsActive { get; set; }
         public int AssessmentResultGroupId { get; set; }
+        public string? Title { get; set; }
 
         public virtual AssessmentResultGroup AssessmentResultGroup { get; set; } = null!;
     }

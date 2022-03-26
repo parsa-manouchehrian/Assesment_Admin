@@ -30,6 +30,7 @@ namespace AdminPanel.Models
         public virtual DbSet<ResetPasswordRequest> ResetPasswordRequests { get; set; } = null!;
         public virtual DbSet<ResultTip> ResultTips { get; set; } = null!;
         public virtual DbSet<Subject> Subjects { get; set; } = null!;
+        public virtual DbSet<SystemSetting> SystemSettings { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserLogin> UserLogins { get; set; } = null!;
         public virtual DbSet<UserOptionAnswer> UserOptionAnswers { get; set; } = null!;
@@ -40,7 +41,7 @@ namespace AdminPanel.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=142.44.243.3;Database=AssessmentDB;User=sa;password=SA123!@#asd");
+                optionsBuilder.UseSqlServer("Server=142.44.243.3;Database=AssessmentDB;User=sa;password=SA123!@#asd;");
             }
         }
 
@@ -48,15 +49,15 @@ namespace AdminPanel.Models
         {
             modelBuilder.Entity<Assessment>(entity =>
             {
-                entity.HasIndex(e => e.AssessmentResultGroupsId, "IX_Assessments_AssessmentResultGroupsId");
+                entity.HasIndex(e => e.AssessmentResultGroupId, "IX_Assessments_AssessmentResultGroupId");
 
                 entity.HasIndex(e => e.SubjectId, "IX_Assessments_SubjectId");
 
                 entity.HasIndex(e => e.UserId, "IX_Assessments_UserId");
 
-                entity.HasOne(d => d.AssessmentResultGroups)
+                entity.HasOne(d => d.AssessmentResultGroup)
                     .WithMany(p => p.Assessments)
-                    .HasForeignKey(d => d.AssessmentResultGroupsId);
+                    .HasForeignKey(d => d.AssessmentResultGroupId);
 
                 entity.HasOne(d => d.Subject)
                     .WithMany(p => p.Assessments)
@@ -133,8 +134,7 @@ namespace AdminPanel.Models
 
                 entity.HasOne(d => d.NextQuestion)
                     .WithMany(p => p.OptionNextQuestions)
-                    .HasForeignKey(d => d.NextQuestionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                    .HasForeignKey(d => d.NextQuestionId);
             });
 
             modelBuilder.Entity<PhoneValidation>(entity =>
@@ -206,6 +206,11 @@ namespace AdminPanel.Models
                     .HasForeignKey(d => d.FirstQuestionId);
             });
 
+            modelBuilder.Entity<SystemSetting>(entity =>
+            {
+                entity.HasKey(e => e.Name);
+            });
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasIndex(e => e.ProvinceId, "IX_Users_ProvinceId");
@@ -215,6 +220,10 @@ namespace AdminPanel.Models
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.HasAcceptAgreement)
+                    .IsRequired()
+                    .HasDefaultValueSql("(CONVERT([bit],(0)))");
+
+                entity.Property(e => e.HasAcceptResearchParticipation)
                     .IsRequired()
                     .HasDefaultValueSql("(CONVERT([bit],(0)))");
 

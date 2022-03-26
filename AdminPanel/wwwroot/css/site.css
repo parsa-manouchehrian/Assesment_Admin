@@ -16,3 +16,10 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.pop-up {
+    position:fixed;
+    left:15%;
+    top:10%;
+    width:70%;
+}
